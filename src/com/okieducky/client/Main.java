@@ -8,10 +8,9 @@ class Main {
 
         Board board = new Board();
 
-        board.printPlayer1();
-        board.printTrack();
-        board.printPlayer2();
 
+        board.printPlayer();
+        board.printTrack();
     }
 
 }
