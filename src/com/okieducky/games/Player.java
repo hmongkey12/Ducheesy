@@ -43,14 +43,4 @@ public class Player {
 }
 
 
-//Random number between 1-3
-// add random number to array
-//Array.IndexOf("Z")
-//    }
-//    public void player2Move(){
-//        int nextSpot = Array.IndexOf(Player2,"T") + new Random().nextInt(3-1 +1) +1
-//        player2[nextSpot]
-//        //Random number between 1-3
-//        // add random number to array
-//        //Array.IndexOf("Z")
-//    }
+
