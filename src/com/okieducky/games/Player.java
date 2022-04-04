@@ -1,45 +1,49 @@
 package com.okieducky.games;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class Player {
 
     //Fields
     public String id;
-    private String[] player1 = new String[20];
-    private String[] player2 = new String[20];
-
+    private String[] player = new String[21];
+    public int nextSpot;
 
     //Constructors
-    public Player() {
-    }
-
     public Player(String id) {
         this.id = id;
     }
 
-    public void player1Start() {
-        Arrays.fill(player1, "   ");
-        player1[0] = "Z";
+    //Methods
+    public void playerStart() {
+        Arrays.fill(player, "   ");
+        player[0] = getId();
     }
 
-    //initial point and point to come back after penalty or chase.
-    public void player1Move() {
-        int currentSpot = Arrays.asList(player1).indexOf("Z");
-        int nextSpot = currentSpot + Dice.rollDice();
-        Arrays.fill(player1, "   ");
-        if(nextSpot<=20) {
-            player1[nextSpot] = "Z";
+    public void win() {
+        System.out.println("The winner is PLAYER: " + getId());
+    }
+
+    //initial point and next point.
+    public void playerMove() {
+        int currentSpot = Arrays.asList(player).indexOf(getId());
+        nextSpot = currentSpot + Dice.rollDice();
+        Arrays.fill(player, "\uD83D\uDFE5");
+        if (nextSpot < 20) {
+            player[nextSpot] = getId();
+        } else {
+            win();
         }
     }
 
-
     //getters
-    public String[] getPlayer1() {
-        return player1;
+    public String[] getPlayer() {
+        return player;
     }
 
+    public String getId() {
+        return id;
+    }
 }
 
 
