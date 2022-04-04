@@ -1,36 +1,56 @@
 package com.okieducky.games;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class Player {
-//Feilds
+
+    //Fields
     public String id;
-    private String[] player1 = new String[21];
-    private String[] player2 = new String[21];
-//Constructors
-    public Player1(String id) {
+    private String[] player1 = new String[20];
+    private String[] player2 = new String[20];
+
+
+    //Constructors
+    public Player() {
+    }
+
+    public Player(String id) {
         this.id = id;
     }
-    public Player2(String id) {
-        this.id = id;
+
+    public void player1Start() {
+        Arrays.fill(player1, "   ");
+        player1[0] = "Z";
     }
-//methods
-    public void player1Start(){
-        player1[0] = "Z"
+
+    //initial point and point to come back after penalty or chase.
+    public void player1Move() {
+        int currentSpot = Arrays.asList(player1).indexOf("Z");
+        int nextSpot = currentSpot + Dice.rollDice();
+        Arrays.fill(player1, "   ");
+        if(nextSpot<=20) {
+            player1[nextSpot] = "Z";
+        }
     }
-    public void player2Start(){
-        player2[0] = "T"
+
+
+    //getters
+    public String[] getPlayer1() {
+        return player1;
     }
-    public void player1Move(){
-        int nextSpot = Array.IndexOf(Player1,"Z") + new Random().nextInt(3-1 +1) +1
-               player1[nextSpot]
-    //Random number between 1-3
-        // add random number to array
-        //Array.IndexOf("Z")
-    }
-    public void player2Move(){
-        int nextSpot = Array.IndexOf(Player2,"T") + new Random().nextInt(3-1 +1) +1
-        player2[nextSpot]
-        //Random number between 1-3
-        // add random number to array
-        //Array.IndexOf("Z")
-    }
+
 }
+
+
+//Random number between 1-3
+// add random number to array
+//Array.IndexOf("Z")
+//    }
+//    public void player2Move(){
+//        int nextSpot = Array.IndexOf(Player2,"T") + new Random().nextInt(3-1 +1) +1
+//        player2[nextSpot]
+//        //Random number between 1-3
+//        // add random number to array
+//        //Array.IndexOf("Z")
+//    }
