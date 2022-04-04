@@ -40,7 +40,8 @@ public class Board {
 
 
     public void printPlayer1(){
-        Arrays.fill(player1," .. ");
+        Arrays.fill(player1," . ");
+        player1[5] = " X ";
         System.out.println(Arrays.toString(player1));
 
     }
