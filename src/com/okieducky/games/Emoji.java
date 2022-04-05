@@ -1,12 +1,11 @@
 package com.okieducky.games;
 
 public enum Emoji {
-    TEXT_GREEN("\u001B[32m"),
-    TEXT_RED( "\u001B[31m"),
-    TEXT_RESET("\u001B[0m"),
-    TEXT_WHITE("\u001b[37m");
+    REG_C("\uD83D\uDFE8"),
+    SAFE_C( "\uD83D\uDFE9"),
+    PENALTY_C("\uD83D\uDFE5");
 
-    public final String text;
+    private final String text;
 
     Emoji(String text){
         this.text = text;
