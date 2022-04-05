@@ -10,9 +10,6 @@ public class Player {
     private int nextSpot;
 
 
-
-    private int currentSpot;
-
     //Constructors
     public Player(String id) {
         this.id = id;
@@ -34,7 +31,9 @@ public class Player {
     //initial point and next point.
     public void playerMove() {
         int currentSpot = Arrays.asList(player).indexOf(getId());
-        nextSpot = currentSpot + Dice.rollDice();
+        int diceRoll = Dice.rollDice();
+        nextSpot = currentSpot + diceRoll;
+        System.out.println(getId() + " rolled a " + diceRoll);
         Arrays.fill(player, "⬜️");
         if (nextSpot < 20) {
             player[nextSpot] = getId();
@@ -42,6 +41,18 @@ public class Player {
             win();
         }
     }
+
+    public void updateSpot(int moveBy) {
+        int currentSpot = Arrays.asList(player).indexOf(getId());
+        nextSpot = currentSpot + moveBy;
+        Arrays.fill(player, "⬜️");
+        if (nextSpot < 20) {
+            player[nextSpot] = getId();
+        } else {
+            win();
+        }
+    }
+
 
     //getters
     public String[] getPlayer() {
@@ -51,15 +62,10 @@ public class Player {
     public String getId() {
         return id;
     }
-    public void setNextSpot(int nextSpot) {
-        this.nextSpot = nextSpot;
-    }
     public int getNextSpot() {
         return nextSpot;
     }
-    public void setCurrentSpot(int currentSpot) {
-        this.currentSpot = currentSpot;
-    }
+
 }
 
 
