@@ -11,4 +11,8 @@ public enum Emoji {
     Emoji(String text){
         this.text = text;
     }
+
+    public String getText() {
+        return text;
+    }
 }
