@@ -46,24 +46,26 @@ public class Board {
         String input = " ";
         p1.playerStart();
         p2.playerStart();
-        System.out.println(Arrays.toString(p1.getPlayer()));
-        printTrack();
-        System.out.println(Arrays.toString(p2.getPlayer()));
-
+        System.out.println("The goal of the game is to make it to the finish line.");
+        System.out.println("Each player will take turns rolling a dice containing numbers 1-3.");
+        System.out.println("Green spaces give you a Boost of 2 squares!!");
+        System.out.println("While red squares take you back to the starting line :(");
+        System.out.println("Racers to the starting line!!!!!");
+        System.out.println("");
+        printBoard();
         while (!input.equals("Q")) {
-            System.out.println("Hit Q to quit game and press ENTER to play, player 1");
+            System.out.println("");
+            System.out.print("Hit Q to quit game or press ENTER to roll dice, player 1");
             input = userInput.nextLine();
             p1.playerMove();
-
-            System.out.println("Player's current location: " + p1.getNextSpot());
              if(goodSpots.contains(p1.getNextSpot())){
                  goodSpotLanding(p1);
              }
              if(badSpots.contains(p1.getNextSpot())){
                 badSpotLanding(p1);
              }
-            System.out.println();
-            System.out.println("Hit Q to quit game and press ENTER to play, player 2");
+             printBoard();
+            System.out.print("Hit Q to quit game or press ENTER to roll dice, player 2");
             input = userInput.nextLine();
             p2.playerMove();
             if(badSpots.contains(p2.getNextSpot())){
@@ -72,9 +74,8 @@ public class Board {
             if(goodSpots.contains(p2.getNextSpot())){
                 goodSpotLanding(p2);
             }
-            System.out.println(Arrays.toString(p1.getPlayer()));
-            printTrack();
-            System.out.println(Arrays.toString(p2.getPlayer()));
+            printBoard();
+
         }
 
 
@@ -88,6 +89,11 @@ public class Board {
     public void badSpotLanding(Player player){
         System.out.println("Bad Spot landed, moving back to start!!");
         player.playerStart();
+    }
+    public void printBoard(){
+        System.out.println(Arrays.toString(p1.getPlayer()));
+        printTrack();
+        System.out.println(Arrays.toString(p2.getPlayer()));
     }
 
 
