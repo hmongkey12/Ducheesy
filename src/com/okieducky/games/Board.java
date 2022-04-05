@@ -54,14 +54,11 @@ public class Board {
             input = userInput.nextLine();
             p1.playerMove();
             System.out.println("Next Spot for player " + p1.getId() + ":" + p1.nextSpot);
-
-
             System.out.println("Hit Q to quit game and press ENTER to play, player 2");
 
             input = userInput.nextLine();
             p2.playerMove();
             System.out.println("Next Spot for player " + p2.getId() + ":" + p2.nextSpot);
-
 
             System.out.println(Arrays.toString(p1.getPlayer()));
             printTrack();
