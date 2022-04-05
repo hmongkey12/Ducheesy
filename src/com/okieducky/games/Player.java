@@ -33,7 +33,7 @@ public class Player {
         int currentSpot = Arrays.asList(player).indexOf(getId());
         int diceRoll = Dice.rollDice();
         nextSpot = currentSpot + diceRoll;
-        System.out.println(getId() + " rolled a " + diceRoll);
+        System.out.println("Player:"+ getId() + " rolled a " + diceRoll);
         Arrays.fill(player, "⬜️");
         if (nextSpot < 20) {
             player[nextSpot] = getId();
