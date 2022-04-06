@@ -32,3 +32,6 @@ run.cmd
 
 #junk
 .DS_Store
+out/
+
+
