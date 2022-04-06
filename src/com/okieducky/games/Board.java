@@ -2,12 +2,13 @@ package com.okieducky.games;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Scanner;
 
 public class Board {
     private String[] track = new String[21];
     private Player p1 = new Player(Cell.DUCKY.getText());
-    private Player p2 = new Player(Cell.DUCKY.getText());
+    private Player p2 = new Player(Cell.DUCKY2.getText());
 
     Scanner userInput = new Scanner(System.in);
     Collection<Integer> badSpots = Arrays.asList(3, 11, 19);
@@ -16,24 +17,26 @@ public class Board {
 
 
 
-    public Board() {}
+    public Board() {
+
+    }
 
     public void printTrack() {
         int i;
-//        String regC = "\uD83D\uDFE8";
+
         String regC = Cell.REGULAR.getText();
         for (i = 0; i < 21; i++) {
             track[i] = regC;
         }
 
         String safeC= Cell.SAFE.getText();
-//      String safeC= "\uD83D\uDFE9";
+
 
         for (i = 0; i < 6; i++) {
             track[i * 4] = safeC;
         }
 
-//        String penaltyC = "\uD83D\uDFE5";
+
         String penaltyC = Cell.PENALTY.getText();
         track[3] = penaltyC;
         track[11] = penaltyC;
@@ -45,24 +48,26 @@ public class Board {
         String input = " ";
         p1.playerStart();
         p2.playerStart();
-        System.out.println(Arrays.toString(p1.getPlayer()));
-        printTrack();
-        System.out.println(Arrays.toString(p2.getPlayer()));
-
+        System.out.println("The goal of the game is to make it to the finish line.\n"+
+                "Each player will take turns rolling a dice containing numbers 1-3.\n"+
+                "Green spaces give you a Boost of 2 squares!!\n"+
+                "While red squares take you back to the starting line :(\n"+
+                "Racers to the starting line!!!!!");
+        System.out.println("");
+        printBoard();
         while (!input.equals("Q")) {
-            System.out.println("Hit Q to quit game and press ENTER to play, player 1");
+            System.out.println("");
+            System.out.print("Hit Q to quit game or press ENTER to roll dice, player 1");
             input = userInput.nextLine();
             p1.playerMove();
-
-            System.out.println("Player's current location: " + p1.getNextSpot());
              if(goodSpots.contains(p1.getNextSpot())){
                  goodSpotLanding(p1);
              }
              if(badSpots.contains(p1.getNextSpot())){
                 badSpotLanding(p1);
              }
-            System.out.println();
-            System.out.println("Hit Q to quit game and press ENTER to play, player 2");
+             printBoard();
+            System.out.print("Hit Q to quit game or press ENTER to roll dice, player 2");
             input = userInput.nextLine();
             p2.playerMove();
             if(badSpots.contains(p2.getNextSpot())){
@@ -71,9 +76,8 @@ public class Board {
             if(goodSpots.contains(p2.getNextSpot())){
                 goodSpotLanding(p2);
             }
-            System.out.println(Arrays.toString(p1.getPlayer()));
-            printTrack();
-            System.out.println(Arrays.toString(p2.getPlayer()));
+            printBoard();
+
         }
 
 
@@ -87,6 +91,11 @@ public class Board {
     public void badSpotLanding(Player player){
         System.out.println("Bad Spot landed, moving back to start!!");
         player.playerStart();
+    }
+    public void printBoard(){
+        System.out.println(Arrays.toString(p1.getPlayer()));
+        printTrack();
+        System.out.println(Arrays.toString(p2.getPlayer()));
     }
 
 
