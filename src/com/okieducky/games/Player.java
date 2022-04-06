@@ -6,12 +6,13 @@ import java.util.Collection;
 public class Player {
 
     //Fields
-    public String id;
+    private String id;
+    private int rolledValue;
     private final String[] player = new String[21];
     private int nextSpot;
     private int previousSpot;
-    public Collection<Integer> badSpots = Arrays.asList(3, 11, 19);
-    public Collection<Integer> goodSpots = Arrays.asList(4, 8, 12, 16);
+    private Collection<Integer> badSpots = Arrays.asList(3, 11, 19);
+    private Collection<Integer> goodSpots = Arrays.asList(4, 8, 12, 16);
 
 
     //Constructors
@@ -34,9 +35,9 @@ public class Player {
     public void playerMove() {
         int currentSpot = Arrays.asList(player).indexOf(getId());
         previousSpot = currentSpot;
-        int diceRoll = Dice.rollDice();
-        nextSpot = currentSpot + diceRoll;
-        System.out.println("Player:"+ getId() + " rolled a " + diceRoll);
+        rolledValue = Dice.rollDice();
+        nextSpot = currentSpot + rolledValue;
+        System.out.println("Player:"+ getId() + " rolled a " + rolledValue);
         Arrays.fill(player, Cell.REGULAR.getText());
         if (nextSpot < 20) {
             if(goodSpots.contains(nextSpot)){
@@ -70,6 +71,10 @@ public class Player {
 
     public int getPreviousSpot() {
         return previousSpot;
+    }
+
+    public int getRolledValue(){
+        return rolledValue;
     }
 
 }

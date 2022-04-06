@@ -36,7 +36,7 @@ public class Board {
         track[3] = penaltyC;
         track[11] = penaltyC;
         track[19] = penaltyC;
-        System.out.println(Arrays.toString(track));
+        System.out.println(Arrays.toString(track).replace(",", ""));
     }
 
     public void printPlayer() {
@@ -52,16 +52,17 @@ public class Board {
         printBoard();
         while (!input.equals("Q")) {
             System.out.println("");
-            System.out.print("Hit Q to quit game or press ENTER to roll dice, Player1 "+ p1.id);
+            System.out.print("Hit Q to quit game or press ENTER to roll dice, Player1 "+ p1.getId());
             input = userInput.nextLine();
             p1.playerMove();
             animateMove(p1, p2, 1);
-
-             printBoard();
-            System.out.print("Hit Q to quit game or press ENTER to roll dice, Player2 " + p2.id);
+            clearConsole();
+            printBoard();
+            System.out.print("Hit Q to quit game or press ENTER to roll dice, Player2 " + p2.getId());
             input = userInput.nextLine();
             p2.playerMove();
             animateMove(p1, p2, 2);
+            clearConsole();
             printBoard();
         }
 
@@ -72,36 +73,40 @@ public class Board {
         String movingId;
         int previousSpot;
         int currentSpot;
+        int rollingValue;
         if(movingPlayer == 1){
             mirrorPlayer = Arrays.copyOf(p1.getPlayer(), p1.getPlayer().length);
             movingId = p1.getId();
             previousSpot = p1.getPreviousSpot();
             currentSpot = p1.getNextSpot();
-
+            rollingValue = p1.getRolledValue();
         }else{
             mirrorPlayer = Arrays.copyOf(p2.getPlayer(), p2.getPlayer().length);
+            rollingValue = p2.getRolledValue();
             movingId = p2.getId();
             previousSpot = p2.getPreviousSpot();
             currentSpot = p2.getNextSpot();
         }
         Arrays.asList(mirrorPlayer).indexOf(movingId);
-
+        //TODO - if current spot is over 21, then they should win and shouldn't keep moving
         for(int i = previousSpot; i < currentSpot; i++){
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clearConsole();
             Arrays.fill(mirrorPlayer, Cell.REGULAR.getText());
-            mirrorPlayer[i] = Cell.DUCKY.getText();
             if(movingPlayer == 1){
-                System.out.println(Arrays.toString(mirrorPlayer));
+                System.out.println("Player:"+ movingId + " rolled a " + rollingValue);
+                mirrorPlayer[i] = Cell.DUCKY.getText();
+                System.out.println(Arrays.toString(mirrorPlayer).replace(",", ""));
                 printTrack();
-                System.out.println(Arrays.toString(p2.getPlayer()));
+                System.out.println(Arrays.toString(p2.getPlayer()).replace(",", ""));
             }else{
-                System.out.println(Arrays.toString(p1.getPlayer()));
+                System.out.println("Player:"+ movingId + " rolled a " + rollingValue);
+                mirrorPlayer[i] = Cell.DUCKY2.getText();
+                System.out.println(Arrays.toString(p1.getPlayer()).replace(",", ""));
                 printTrack();
-                System.out.println(Arrays.toString(mirrorPlayer));
+                System.out.println(Arrays.toString(mirrorPlayer).replace(",", ""));
             }
             try{
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             }
             catch(InterruptedException e){
                 System.out.println(e.getMessage());
@@ -110,10 +115,14 @@ public class Board {
     }
 
     public void printBoard(){
-        System.out.println(Arrays.toString(p1.getPlayer()));
+        System.out.println(Arrays.toString(p1.getPlayer()).replace(",", ""));
         printTrack();
-        System.out.println(Arrays.toString(p2.getPlayer()));
+        System.out.println(Arrays.toString(p2.getPlayer()).replace(",", ""));
     }
 
+    public void clearConsole(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 
 }
