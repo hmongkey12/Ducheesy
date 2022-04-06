@@ -9,6 +9,7 @@ public class Player {
     public String id;
     private final String[] player = new String[21];
     private int nextSpot;
+    private int previousSpot;
     public Collection<Integer> badSpots = Arrays.asList(3, 11, 19);
     public Collection<Integer> goodSpots = Arrays.asList(4, 8, 12, 16);
 
@@ -32,6 +33,7 @@ public class Player {
     //initial point and next point.
     public void playerMove() {
         int currentSpot = Arrays.asList(player).indexOf(getId());
+        previousSpot = currentSpot;
         int diceRoll = Dice.rollDice();
         nextSpot = currentSpot + diceRoll;
         System.out.println("Player:"+ getId() + " rolled a " + diceRoll);
@@ -44,6 +46,7 @@ public class Player {
             if(badSpots.contains(nextSpot)){
                 System.out.println("Bad Spot landed, moving back to start!!");
                 nextSpot = 0;
+                previousSpot = 0;
                 playerStart();
             }
             player[nextSpot] = getId();
@@ -60,8 +63,13 @@ public class Player {
     public String getId() {
         return id;
     }
+
     public int getNextSpot() {
         return nextSpot;
+    }
+
+    public int getPreviousSpot() {
+        return previousSpot;
     }
 
 }

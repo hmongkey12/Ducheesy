@@ -24,3 +24,11 @@ hs_err_pid*
 
 #Intellij files
 *.iml
+.idea/
+
+#scripts
+run.sh
+run.cmd
+
+#junk
+.DS_Store
