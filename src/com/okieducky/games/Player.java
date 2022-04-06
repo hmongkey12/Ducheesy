@@ -1,6 +1,7 @@
 package com.okieducky.games;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 public class Player {
 
@@ -8,6 +9,8 @@ public class Player {
     public String id;
     private final String[] player = new String[21];
     private int nextSpot;
+    public Collection<Integer> badSpots = Arrays.asList(3, 11, 19);
+    public Collection<Integer> goodSpots = Arrays.asList(4, 8, 12, 16);
 
 
     //Constructors
@@ -26,8 +29,6 @@ public class Player {
     }
 
 
-
-
     //initial point and next point.
     public void playerMove() {
         int currentSpot = Arrays.asList(player).indexOf(getId());
@@ -36,23 +37,20 @@ public class Player {
         System.out.println("Player:"+ getId() + " rolled a " + diceRoll);
         Arrays.fill(player, Cell.REGULAR.getText());
         if (nextSpot < 20) {
+            if(goodSpots.contains(nextSpot)){
+                System.out.println("Good Spot landed, moving 2!!");
+                nextSpot = nextSpot+2;
+                player[nextSpot] = getId();}
+            if(badSpots.contains(nextSpot)){
+                System.out.println("Bad Spot landed, moving back to start!!");
+                nextSpot = 0;
+                playerStart();
+            }
             player[nextSpot] = getId();
         } else {
             win();
         }
     }
-
-    public void updateSpot(int moveBy) {
-        int currentSpot = Arrays.asList(player).indexOf(getId());
-        nextSpot = currentSpot + moveBy;
-        Arrays.fill(player, Cell.REGULAR.getText());
-        if (nextSpot < 20) {
-            player[nextSpot] = getId();
-        } else {
-            win();
-        }
-    }
-
 
     //getters
     public String[] getPlayer() {
