@@ -11,11 +11,6 @@ public class Board {
     private Player p2 = new Player(Cell.DUCKY2.getText());
 
     Scanner userInput = new Scanner(System.in);
-    Collection<Integer> badSpots = Arrays.asList(3, 11, 19);
-    Collection<Integer> goodSpots = Arrays.asList(4, 8, 12, 16);
-
-
-
 
     public Board() {
 
@@ -57,41 +52,18 @@ public class Board {
         printBoard();
         while (!input.equals("Q")) {
             System.out.println("");
-            System.out.print("Hit Q to quit game or press ENTER to roll dice, player 1");
+            System.out.print("Hit Q to quit game or press ENTER to roll dice, Player1 "+ p1.id);
             input = userInput.nextLine();
             p1.playerMove();
-             if(goodSpots.contains(p1.getNextSpot())){
-                 goodSpotLanding(p1);
-             }
-             if(badSpots.contains(p1.getNextSpot())){
-                badSpotLanding(p1);
-             }
              printBoard();
-            System.out.print("Hit Q to quit game or press ENTER to roll dice, player 2");
+            System.out.print("Hit Q to quit game or press ENTER to roll dice, Player2 " + p2.id);
             input = userInput.nextLine();
             p2.playerMove();
-            if(badSpots.contains(p2.getNextSpot())){
-                badSpotLanding(p2);
-            }
-            if(goodSpots.contains(p2.getNextSpot())){
-                goodSpotLanding(p2);
-            }
             printBoard();
-
         }
 
-
     }
 
-    public void goodSpotLanding(Player player){
-        System.out.println("Good Spot landed, moving 2!!");
-        player.updateSpot(2);
-    }
-
-    public void badSpotLanding(Player player){
-        System.out.println("Bad Spot landed, moving back to start!!");
-        player.playerStart();
-    }
     public void printBoard(){
         System.out.println(Arrays.toString(p1.getPlayer()));
         printTrack();
