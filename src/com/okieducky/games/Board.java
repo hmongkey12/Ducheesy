@@ -9,7 +9,6 @@ public class Board {
     private String[] track = new String[21];
     private Player p1 = new Player(Cell.DUCKY.getText());
     private Player p2 = new Player(Cell.DUCKY2.getText());
-
     Scanner userInput = new Scanner(System.in);
 
     public Board() {
@@ -26,12 +25,11 @@ public class Board {
 
         String safeC= Cell.SAFE.getText();
 
-
-        for (i = 0; i < 6; i++) {
+        for (i = 0; i < 5; i++) {
             track[i * 4] = safeC;
         }
 
-
+        track[20] = Cell.WIN.getText();
         String penaltyC = Cell.PENALTY.getText();
         track[3] = penaltyC;
         track[11] = penaltyC;
@@ -50,7 +48,7 @@ public class Board {
                 "Racers to the starting line!!!!!");
         System.out.println("");
         printBoard();
-        while (!input.equals("Q")) {
+        while (!input.equals("Q") && !(p1.getWin()) || p2.getWin()) {
             System.out.println("");
             System.out.print("Hit Q to quit game or press ENTER to roll dice, Player1 "+ p1.getId());
             input = userInput.nextLine();

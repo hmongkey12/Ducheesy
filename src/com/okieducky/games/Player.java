@@ -11,6 +11,7 @@ public class Player {
     private final String[] player = new String[21];
     private int nextSpot;
     private int previousSpot;
+    private boolean win = false;
     private Collection<Integer> badSpots = Arrays.asList(3, 11, 19);
     private Collection<Integer> goodSpots = Arrays.asList(4, 8, 12, 16);
 
@@ -27,6 +28,7 @@ public class Player {
     }
 
     public void win() {
+        this.win = true;
         System.out.println("The winner is PLAYER: " + getId());
     }
 
@@ -75,6 +77,10 @@ public class Player {
 
     public int getRolledValue(){
         return rolledValue;
+    }
+
+    public boolean getWin(){
+        return win;
     }
 
 }
