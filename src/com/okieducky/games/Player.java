@@ -6,7 +6,7 @@ public class Player {
 
     //Fields
     public String id;
-    private String[] player = new String[21];
+    private final String[] player = new String[21];
     private int nextSpot;
 
 
@@ -17,7 +17,7 @@ public class Player {
 
     //Methods
     public void playerStart() {
-        Arrays.fill(player, "⬜️");
+        Arrays.fill(player, Cell.REGULAR.getText());
         player[0] = getId();
     }
 
@@ -34,7 +34,7 @@ public class Player {
         int diceRoll = Dice.rollDice();
         nextSpot = currentSpot + diceRoll;
         System.out.println("Player:"+ getId() + " rolled a " + diceRoll);
-        Arrays.fill(player, "⬜️");
+        Arrays.fill(player, Cell.REGULAR.getText());
         if (nextSpot < 20) {
             player[nextSpot] = getId();
         } else {
@@ -45,7 +45,7 @@ public class Player {
     public void updateSpot(int moveBy) {
         int currentSpot = Arrays.asList(player).indexOf(getId());
         nextSpot = currentSpot + moveBy;
-        Arrays.fill(player, "⬜️");
+        Arrays.fill(player, Cell.REGULAR.getText());
         if (nextSpot < 20) {
             player[nextSpot] = getId();
         } else {

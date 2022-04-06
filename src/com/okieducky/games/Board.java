@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class Board {
     private String[] track = new String[21];
-    private Player p1 = new Player("1️⃣");
-    private Player p2 = new Player("2️⃣");
+    private Player p1 = new Player(Cell.DUCKY.getText());
+    private Player p2 = new Player(Cell.DUCKY2.getText());
 
     Scanner userInput = new Scanner(System.in);
     Collection<Integer> badSpots = Arrays.asList(3, 11, 19);
@@ -17,25 +17,27 @@ public class Board {
 
 
 
-    public Board() {}
+    public Board() {
+
+    }
 
     public void printTrack() {
         int i;
-//        String regC = "\uD83D\uDFE8";
-        String regC = Emoji.REG_C.getText();
+
+        String regC = Cell.REGULAR.getText();
         for (i = 0; i < 21; i++) {
             track[i] = regC;
         }
 
-        String safeC= Emoji.SAFE_C.getText();
-//      String safeC= "\uD83D\uDFE9";
+        String safeC= Cell.SAFE.getText();
+
 
         for (i = 0; i < 6; i++) {
             track[i * 4] = safeC;
         }
 
-//        String penaltyC = "\uD83D\uDFE5";
-        String penaltyC = Emoji.PENALTY_C.getText();
+
+        String penaltyC = Cell.PENALTY.getText();
         track[3] = penaltyC;
         track[11] = penaltyC;
         track[19] = penaltyC;
@@ -46,11 +48,11 @@ public class Board {
         String input = " ";
         p1.playerStart();
         p2.playerStart();
-        System.out.println("The goal of the game is to make it to the finish line.");
-        System.out.println("Each player will take turns rolling a dice containing numbers 1-3.");
-        System.out.println("Green spaces give you a Boost of 2 squares!!");
-        System.out.println("While red squares take you back to the starting line :(");
-        System.out.println("Racers to the starting line!!!!!");
+        System.out.println("The goal of the game is to make it to the finish line.\n"+
+                "Each player will take turns rolling a dice containing numbers 1-3.\n"+
+                "Green spaces give you a Boost of 2 squares!!\n"+
+                "While red squares take you back to the starting line :(\n"+
+                "Racers to the starting line!!!!!");
         System.out.println("");
         printBoard();
         while (!input.equals("Q")) {
