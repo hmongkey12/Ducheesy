@@ -1,15 +1,12 @@
 package com.okieducky.games;
 
-
 import com.apps.util.Console;
 import com.apps.util.Prompter;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Scanner;
 
 public class Board {
@@ -19,20 +16,15 @@ public class Board {
     Scanner userInput = new Scanner(System.in);
     Prompter prompter = new Prompter(new Scanner(System.in));
 
-    public Board() {
-
-    }
-
     public void banner() {
 
         try {
-            Files.lines(Path.of( "duch.txt"))
+            Files.lines(Path.of("duch.txt"))
                     .forEach(line -> System.out.println(line));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     public void printTrack() {
         int i;
@@ -61,21 +53,21 @@ public class Board {
         p1.playerStart();
         p2.playerStart();
         banner();
-        System.out.println("The goal of the game is to make it to the finish line.\n"+
-                "Each player will take turns rolling a dice containing numbers 1 THROUGH 4.\n"+
-                "GREEN OR SAFE spaces give you a Boost of 2 squares!!\n"+
-                "While RED or PENALTY spots take you back to the starting spot :(\n"+
+        System.out.println("The goal of the game is to make it to the finish line.\n" +
+                "Each player will take turns rolling a dice containing numbers 1 THROUGH 4.\n" +
+                "GREEN SAFE spots give you a Boost of 2 spots!!\n" +
+                "While RED PENALTY spots take you back to the Starting Spot:(\n" +
                 "Racers to the starting line!!!!!");
         System.out.println("");
         printBoard();
         while (!input.equalsIgnoreCase("q") && !(p1.getWin()) || p2.getWin()) {
             System.out.println("");
-            input = prompter.prompt("Hit Q to quit game or press ENTER to roll dice, Player1 "+ p1.getId());
+            input = prompter.prompt("Hit Q to quit game or press ENTER to roll dice, Player1 " + p1.getId());
             p1.playerMove();
             animateMove(p1, p2, 1);
             Console.clear();
             printBoard();
-            input = prompter.prompt("Hit Q to quit game or press ENTER to roll dice, Player1 "+ p2.getId());
+            input = prompter.prompt("Hit Q to quit game or press ENTER to roll dice, Player1 " + p2.getId());
             p2.playerMove();
             animateMove(p1, p2, 2);
             Console.clear();
@@ -104,8 +96,7 @@ public class Board {
             currentSpot = p2.getNextSpot();
         }
         Arrays.asList(mirrorPlayer).indexOf(movingId);
-        //TODO - if current spot is over 21, then they should win and shouldn't keep moving
-        for(int i = previousSpot; i < currentSpot; i++){
+        for (int i = previousSpot; i < currentSpot; i++) {
             Console.clear();
             Arrays.fill(mirrorPlayer, Cell.REGULAR.getText());
             if (movingPlayer == 1) {
@@ -130,12 +121,11 @@ public class Board {
     }
 
 
-    public void printBoard(){
-        if(p1.isLandedOnBadSpot()){
+    public void printBoard() {
+        if (p1.isLandedOnBadSpot()) {
             System.out.println(p1.getId() + "Bad Spot landed, moving back to start!!");
             p1.setLandedOnBadSpot(false);
-        }
-        else if(p2.isLandedOnBadSpot()){
+        } else if (p2.isLandedOnBadSpot()) {
             System.out.println(p2.getId() + "Bad Spot landed, moving back to start!!");
             p2.setLandedOnBadSpot(false);
         }
@@ -145,12 +135,11 @@ public class Board {
     }
 
 
-    public void printWin(Player p1, Player p2){
-       if(p1.getWin()) {
-           System.out.println("Player " + p1.getId() + " is the Winnner!");
-       }
-       else{
-           System.out.println("Player " + p2.getId() + " is the Winnner!");
-       }
+    public void printWin(Player p1, Player p2) {
+        if (p1.getWin()) {
+            System.out.println("Player " + p1.getId() + " is the Winnner!");
+        } else {
+            System.out.println("Player " + p2.getId() + " is the Winnner!");
+        }
     }
 }
