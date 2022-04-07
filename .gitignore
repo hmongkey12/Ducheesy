@@ -26,10 +26,6 @@ hs_err_pid*
 *.iml
 .idea/
 
-#scripts
-run.sh
-run.cmd
-
 #junk
 .DS_Store
 out/
