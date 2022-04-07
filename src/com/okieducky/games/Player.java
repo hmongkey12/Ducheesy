@@ -7,6 +7,7 @@ public class Player {
     //Fields
     private String id;
     private boolean landedOnBadSpot = false;
+    private boolean landedOnGoodSpot = false;
     private int rolledValue;
     private final String[] player = new String[21];
     private int nextSpot;
@@ -19,13 +20,18 @@ public class Player {
         this.id = id;
     }
 
-    //Methods
+    //Business Methods
+    /**
+     * initializes the player array to an empty array and puts player in the front
+     */
     public void playerStart() {
         Arrays.fill(player, Cell.REGULAR.getText());
         player[0] = getId();
     }
 
-    //initial point and next point.
+    /**
+     * updates the player array based on the dice rolls, and sets the booleans for badSpot and goodSpot landings
+     */
     public void playerMove() {
         int currentSpot = Arrays.asList(player).indexOf(getId());
         previousSpot = currentSpot;
@@ -35,20 +41,18 @@ public class Player {
         Arrays.fill(player, Cell.REGULAR.getText());
         if (nextSpot < 20) {
             if(goodSpots.contains(nextSpot)){
-                System.out.println("Good Spot landed, moving 2!!");
+                setLandedOnGoodSpot(true);
                 nextSpot = nextSpot+2;
                 player[nextSpot] = getId();}
             if(badSpots.contains(nextSpot)){
                 setLandedOnBadSpot(true);
                 nextSpot = 0;
-//                previousSpot = 0;
-//                playerStart();
             }
             player[nextSpot] = getId();
         }
     }
 
-    //getters
+    //accessors
     public String[] getPlayer() {
         return player;
     }
@@ -76,6 +80,15 @@ public class Player {
     public void setLandedOnBadSpot(boolean landedOnBadSpot) {
         this.landedOnBadSpot = landedOnBadSpot;
     }
+
+    public boolean isLandedOnGoodSpot() {
+        return landedOnGoodSpot;
+    }
+
+    public void setLandedOnGoodSpot(boolean landedOnGoodSpot) {
+        this.landedOnGoodSpot = landedOnGoodSpot;
+    }
+
 }
 
 
