@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class Player {
-
     //Fields
     private String id;
     private boolean landedOnBadSpot = false;
@@ -16,7 +15,6 @@ public class Player {
     private Collection<Integer> badSpots = Arrays.asList(3, 11, 19);
     private Collection<Integer> goodSpots = Arrays.asList(4, 8, 12, 16);
 
-
     //Constructors
     public Player(String id) {
         this.id = id;
@@ -27,7 +25,6 @@ public class Player {
         Arrays.fill(player, Cell.REGULAR.getText());
         player[0] = getId();
     }
-
 
     //initial point and next point.
     public void playerMove() {
