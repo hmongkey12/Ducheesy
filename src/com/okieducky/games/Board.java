@@ -1,9 +1,15 @@
 package com.okieducky.games;
 
+
 import com.apps.util.Console;
 import com.apps.util.Prompter;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Scanner;
 
 public class Board {
@@ -17,6 +23,17 @@ public class Board {
 
     }
 
+    public void banner() {
+
+        try {
+            Files.lines(Path.of( "duch.txt"))
+                    .forEach(line -> System.out.println(line));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void printTrack() {
         int i;
 
@@ -25,7 +42,7 @@ public class Board {
             track[i] = regC;
         }
 
-        String safeC= Cell.SAFE.getText();
+        String safeC = Cell.SAFE.getText();
 
         for (i = 0; i < 5; i++) {
             track[i * 4] = safeC;
@@ -43,6 +60,7 @@ public class Board {
         String input = " ";
         p1.playerStart();
         p2.playerStart();
+        banner();
         System.out.println("The goal of the game is to make it to the finish line.\n"+
                 "Each player will take turns rolling a dice containing numbers 1 THROUGH 4.\n"+
                 "GREEN OR SAFE spaces give you a Boost of 2 squares!!\n"+
@@ -66,19 +84,19 @@ public class Board {
         printWin(p1, p2);
     }
 
-    public void animateMove(Player p1, Player p2, int movingPlayer){
-        String [] mirrorPlayer;
+    public void animateMove(Player p1, Player p2, int movingPlayer) {
+        String[] mirrorPlayer;
         String movingId;
         int previousSpot;
         int currentSpot;
         int rollingValue;
-        if(movingPlayer == 1){
+        if (movingPlayer == 1) {
             mirrorPlayer = Arrays.copyOf(p1.getPlayer(), p1.getPlayer().length);
             movingId = p1.getId();
             previousSpot = p1.getPreviousSpot();
             currentSpot = p1.getNextSpot();
             rollingValue = p1.getRolledValue();
-        }else{
+        } else {
             mirrorPlayer = Arrays.copyOf(p2.getPlayer(), p2.getPlayer().length);
             rollingValue = p2.getRolledValue();
             movingId = p2.getId();
@@ -90,27 +108,27 @@ public class Board {
         for(int i = previousSpot; i < currentSpot; i++){
             Console.clear();
             Arrays.fill(mirrorPlayer, Cell.REGULAR.getText());
-            if(movingPlayer == 1){
-                System.out.println("Player:"+ movingId + " rolled a " + rollingValue);
+            if (movingPlayer == 1) {
+                System.out.println("Player:" + movingId + " rolled a " + rollingValue);
                 mirrorPlayer[i] = Cell.DUCKY.getText();
                 System.out.println(Arrays.toString(mirrorPlayer).replace(",", ""));
                 printTrack();
                 System.out.println(Arrays.toString(p2.getPlayer()).replace(",", ""));
-            }else{
-                System.out.println("Player:"+ movingId + " rolled a " + rollingValue);
+            } else {
+                System.out.println("Player:" + movingId + " rolled a " + rollingValue);
                 mirrorPlayer[i] = Cell.DUCKY2.getText();
                 System.out.println(Arrays.toString(p1.getPlayer()).replace(",", ""));
                 printTrack();
                 System.out.println(Arrays.toString(mirrorPlayer).replace(",", ""));
             }
-            try{
+            try {
                 Thread.sleep(1000);
-            }
-            catch(InterruptedException e){
+            } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
+
 
     public void printBoard(){
         if(p1.isLandedOnBadSpot()){
@@ -125,6 +143,7 @@ public class Board {
         printTrack();
         System.out.println(Arrays.toString(p2.getPlayer()).replace(",", ""));
     }
+
 
     public void printWin(Player p1, Player p2){
        if(p1.getWin()) {
