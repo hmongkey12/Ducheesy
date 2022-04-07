@@ -1,5 +1,8 @@
 package com.okieducky.games;
 
+/**
+ * Contains the cell values in the form of a String and is used to print the board
+ */
 public enum Cell {
     REGULAR("\033[37m[ ]\033[0m"),
     SAFE( "\033[92m[S]\033[0m"),
