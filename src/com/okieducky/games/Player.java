@@ -7,6 +7,7 @@ public class Player {
 
     //Fields
     private String id;
+    private boolean landedOnBadSpot = false;
     private int rolledValue;
     private final String[] player = new String[21];
     private int nextSpot;
@@ -27,11 +28,6 @@ public class Player {
         player[0] = getId();
     }
 
-    public void win() {
-        this.win = true;
-        System.out.println("The winner is PLAYER: " + getId());
-    }
-
 
     //initial point and next point.
     public void playerMove() {
@@ -47,14 +43,14 @@ public class Player {
                 nextSpot = nextSpot+2;
                 player[nextSpot] = getId();}
             if(badSpots.contains(nextSpot)){
-                System.out.println("Bad Spot landed, moving back to start!!");
+                setLandedOnBadSpot(true);
                 nextSpot = 0;
                 previousSpot = 0;
                 playerStart();
             }
             player[nextSpot] = getId();
         } else {
-            win();
+            win = true;
         }
     }
 
@@ -83,6 +79,13 @@ public class Player {
         return win;
     }
 
+    public boolean isLandedOnBadSpot() {
+        return landedOnBadSpot;
+    }
+
+    public void setLandedOnBadSpot(boolean landedOnBadSpot) {
+        this.landedOnBadSpot = landedOnBadSpot;
+    }
 }
 
 

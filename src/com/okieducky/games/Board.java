@@ -1,8 +1,9 @@
 package com.okieducky.games;
 
+import com.apps.util.Console;
+import com.apps.util.Prompter;
+
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 import java.util.Scanner;
 
 public class Board {
@@ -10,6 +11,7 @@ public class Board {
     private Player p1 = new Player(Cell.DUCKY.getText());
     private Player p2 = new Player(Cell.DUCKY2.getText());
     Scanner userInput = new Scanner(System.in);
+    Prompter prompter = new Prompter(new Scanner(System.in));
 
     public Board() {
 
@@ -42,28 +44,26 @@ public class Board {
         p1.playerStart();
         p2.playerStart();
         System.out.println("The goal of the game is to make it to the finish line.\n"+
-                "Each player will take turns rolling a dice containing numbers 1-3.\n"+
-                "Green spaces give you a Boost of 2 squares!!\n"+
-                "While red squares take you back to the starting line :(\n"+
+                "Each player will take turns rolling a dice containing numbers 1 THROUGH 4.\n"+
+                "GREEN OR SAFE spaces give you a Boost of 2 squares!!\n"+
+                "While RED or PENALTY spots take you back to the starting spot :(\n"+
                 "Racers to the starting line!!!!!");
         System.out.println("");
         printBoard();
-        while (!input.equals("Q") && !(p1.getWin()) || p2.getWin()) {
+        while (!input.equalsIgnoreCase("q") && !(p1.getWin()) || p2.getWin()) {
             System.out.println("");
-            System.out.print("Hit Q to quit game or press ENTER to roll dice, Player1 "+ p1.getId());
-            input = userInput.nextLine();
+            input = prompter.prompt("Hit Q to quit game or press ENTER to roll dice, Player1 "+ p1.getId());
             p1.playerMove();
             animateMove(p1, p2, 1);
-            clearConsole();
+            Console.clear();
             printBoard();
-            System.out.print("Hit Q to quit game or press ENTER to roll dice, Player2 " + p2.getId());
-            input = userInput.nextLine();
+            input = prompter.prompt("Hit Q to quit game or press ENTER to roll dice, Player1 "+ p2.getId());
             p2.playerMove();
             animateMove(p1, p2, 2);
-            clearConsole();
+            Console.clear();
             printBoard();
         }
-
+        printWin(p1, p2);
     }
 
     public void animateMove(Player p1, Player p2, int movingPlayer){
@@ -88,7 +88,7 @@ public class Board {
         Arrays.asList(mirrorPlayer).indexOf(movingId);
         //TODO - if current spot is over 21, then they should win and shouldn't keep moving
         for(int i = previousSpot; i < currentSpot; i++){
-            clearConsole();
+            Console.clear();
             Arrays.fill(mirrorPlayer, Cell.REGULAR.getText());
             if(movingPlayer == 1){
                 System.out.println("Player:"+ movingId + " rolled a " + rollingValue);
@@ -113,14 +113,25 @@ public class Board {
     }
 
     public void printBoard(){
+        if(p1.isLandedOnBadSpot()){
+            System.out.println(p1.getId() + "Bad Spot landed, moving back to start!!");
+            p1.setLandedOnBadSpot(false);
+        }
+        else if(p2.isLandedOnBadSpot()){
+            System.out.println(p2.getId() + "Bad Spot landed, moving back to start!!");
+            p2.setLandedOnBadSpot(false);
+        }
         System.out.println(Arrays.toString(p1.getPlayer()).replace(",", ""));
         printTrack();
         System.out.println(Arrays.toString(p2.getPlayer()).replace(",", ""));
     }
 
-    public void clearConsole(){
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+    public void printWin(Player p1, Player p2){
+       if(p1.getWin()) {
+           System.out.println("Player " + p1.getId() + " is the Winnner!");
+       }
+       else{
+           System.out.println("Player " + p2.getId() + " is the Winnner!");
+       }
     }
-
 }
