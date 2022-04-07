@@ -11,7 +11,6 @@ public class Player {
     private final String[] player = new String[21];
     private int nextSpot;
     private int previousSpot;
-    private boolean win = false;
     private Collection<Integer> badSpots = Arrays.asList(3, 11, 19);
     private Collection<Integer> goodSpots = Arrays.asList(4, 8, 12, 16);
 
@@ -42,12 +41,10 @@ public class Player {
             if(badSpots.contains(nextSpot)){
                 setLandedOnBadSpot(true);
                 nextSpot = 0;
-                previousSpot = 0;
-                playerStart();
+//                previousSpot = 0;
+//                playerStart();
             }
             player[nextSpot] = getId();
-        } else {
-            win = true;
         }
     }
 
@@ -70,10 +67,6 @@ public class Player {
 
     public int getRolledValue(){
         return rolledValue;
-    }
-
-    public boolean getWin(){
-        return win;
     }
 
     public boolean isLandedOnBadSpot() {
